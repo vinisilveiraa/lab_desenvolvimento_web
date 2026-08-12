@@ -16,3 +16,11 @@ npm install nodemon -D
 
 depois de baixar, nao enviar node_modules
     npm install (para recuperar)
+
+
+---
+
+# Swagger
+
+npm install swagger-ui-express swagger-autogen
+npm run swagger
