@@ -4,9 +4,11 @@ import { Types } from "mongoose";
 export default class TarefaController {
 
     static async Create(req, res) {
+        console.log("BODY:", req.body);
+
         const { titulo, descricao, dataLimite, situacao } = req.body;
 
-        if (!titulo || !descricao || dataLimite || situacao) {
+        if (!titulo || !descricao || !dataLimite || !situacao) {
             return res.status(422).json({ message: "Todos os dados sao obrigatorios" });
         };
 
@@ -15,7 +17,7 @@ export default class TarefaController {
                 titulo, descricao, dataLimite, situacao
             });
 
-            const novaTarefa = await Tarefa.save();
+            const novaTarefa = await tarefa.save();
             res.status(200).json({ message: "Tarefa inserida com sucesso", novaTarefa });
             return;
 

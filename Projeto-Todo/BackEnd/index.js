@@ -3,6 +3,8 @@ import cors from "cors";
 import routes from "./Routes/routes.js";
 import swaggerUi from "swagger-ui-express";
 
+import { createRequire } from "module";
+
 // suporte para importar arqivos json usando ESModules
 const require = createRequire(import.meta.url);
 const swaggerDocument = require("./swagger-outputFile.json");
@@ -12,12 +14,19 @@ const app = new express();
 
 // comunicacao entre front e back usa json
 app.use(express.json());
+
+app.post("/teste", (req, res) => {
+    console.log("BODY TESTE:", req.body);
+    return res.json(req.body);
+});
+
 app.use(cors({
     credentials: true,
     origin: "http://localhost:3000"
 }));
 
 // obrigatoriamente o swagger deve vir antes das rotas
+// /docs pro swagger
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/ToDo", routes);
 app.listen(5000);
