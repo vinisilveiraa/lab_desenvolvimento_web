@@ -22,7 +22,7 @@ app.post("/teste", (req, res) => {
 
 app.use(cors({
     credentials: true,
-    origin: "http://localhost:3000"
+    origin: "http://localhost:5173"
 }));
 
 // obrigatoriamente o swagger deve vir antes das rotas
