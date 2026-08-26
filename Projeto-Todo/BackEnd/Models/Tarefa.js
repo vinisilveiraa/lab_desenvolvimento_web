@@ -1,8 +1,5 @@
-import { mongo } from 'mongoose';
-import mongoose from '../db/conn.js';
-
+import mongoose from "../db/conn.js";
 const { Schema } = mongoose;
-
 const tarefaSchema = new Schema({
     titulo: {
         type: String,
@@ -19,9 +16,7 @@ const tarefaSchema = new Schema({
     situacao: {
         type: String,
         required: true,
-    },
+    }
 }, { timestamps: true });
-
 const Tarefa = mongoose.model('Tarefa', tarefaSchema);
-
 export default Tarefa;

@@ -1,6 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,22 +11,17 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "type": "module",
   "dependencies": {
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "mongoose": "^9.9.2",
-    "run": "^1.5.0",
-    "swagger": "^0.0.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.9.1",
+    "nodemailer": "^9.0.5",
+    "nodemon": "^3.1.14",
     "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.1"
-  },
-  "devDependencies": {
-    "install": "^0.13.0",
-    "nodemon": "^3.1.14",
-    "npm": "^11.19.0",
-    "ou": "^0.0.2"
   }
 }

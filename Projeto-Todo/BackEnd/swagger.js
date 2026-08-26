@@ -1,19 +1,19 @@
-import swaggerAutoGen from "swagger-autogen";
-
+import swaggerAutogen from "swagger-autogen";
 const doc = {
     info: {
         title: 'API ToDo List',
-        description: 'Documentação para geração automatica dos testes'
+        description: 'Documentação para a geração automática dos testes'
     },
     host: 'localhost:5000',
-    basePath: '/ToDo'
+    basePath: '/ToDo',
 }
+//nome do arquivo que será gerado automaticamente
+const outputFile = './swagger-output.json';
 
-// nome do arquivo que seja gerado automaticamente
-const outputFile = './swagger-outputFile.json';
-// caminho para as rotas
-const routesFile = ['./Routes/routes.js'];
+//caminho para as rotas
+const endpointsFiles = [
+    './Routes/routesUsuario.js',
+    './Routes/routesTarefa.js',
+];
 
-swaggerAutoGen()(
-    outputFile, routesFile, doc
-)
+swaggerAutogen()(outputFile, endpointsFiles, doc);
