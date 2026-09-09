@@ -9,7 +9,7 @@ export default function TodoForm() {
   const [dataLimite, setDataLimite] = useState("");
   const [situacao, setSituacao] = useState("PENDENTE");
   const [participam, setParticipam] = useState([]);
-  const [usuarios, setUsuarios] = useState([]); 
+  const [usuarios, setUsuarios] = useState([]);
   const [loadingUsuarios, setLoadingUsuarios] = useState(true);
 
   const [saving, setSaving] = useState(false);
@@ -21,12 +21,12 @@ export default function TodoForm() {
         setLoadingUsuarios(true);
         const res = await getUsers();
         const lista = res?.data?.usuarios || [];
-        
+
         // Garante que só seta se for realmente um Array
         setUsuarios(Array.isArray(lista) ? lista : []);
       } catch (error) {
         console.error("Erro ao carregar usuários:", error);
-        setUsuarios([]); 
+        setUsuarios([]);
       } finally {
         setLoadingUsuarios(false);
       }
@@ -94,7 +94,7 @@ export default function TodoForm() {
             <p className="text-sm text-gray-500">Carregando usuários...</p>
           ) : (
             <div className="max-h-40 overflow-y-auto border rounded p-3 space-y-2 bg-gray-50">
-              
+
               {Array.isArray(usuarios) && usuarios.length > 0 ? (
                 usuarios.map((user) => (
                   <label
