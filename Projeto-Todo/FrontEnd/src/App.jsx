@@ -106,12 +106,14 @@ export default function App() {
                     isAuthenticated ? <TodoList /> : <Navigate to="/login" replace />
                   }
                 />
+
                 <Route
                   path="new"
                   element={
                     isAuthenticated ? <TodoForm /> : <Navigate to="/login" replace />
                   }
                 />
+
                 <Route
                   path="login"
                   element={
@@ -125,6 +127,7 @@ export default function App() {
                     )
                   }
                 />
+
                 <Route
                   path="register"
                   element={
@@ -152,6 +155,7 @@ export default function App() {
                     )
                   }
                 />
+
                 <Route
                   path="reset-password"
                   element={
@@ -165,6 +169,7 @@ export default function App() {
                     )
                   }
                 />
+
               </Routes>
             </main>
           </div>

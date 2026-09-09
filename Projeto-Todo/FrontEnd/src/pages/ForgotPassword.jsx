@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { forgotPassword } from "../api/Todo";
 
-export default function ForgotPassword({ onEmailSent }) {
+export default function ForgotPassword({ onForgotPassword }) {
     const [email, setEmail] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -13,8 +13,8 @@ export default function ForgotPassword({ onEmailSent }) {
         try {
             await forgotPassword({ email });
 
-            if (onEmailSent) {
-                onEmailSent();
+            if (onForgotPassword) {
+                onForgotPassword();
             }
 
         } catch (error) {

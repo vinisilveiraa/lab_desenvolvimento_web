@@ -35,7 +35,7 @@ export default function ResetPassword({ onResetSuccess }) {
             }
 
         } catch (error) {
-            alert("Erro ao resetar novaSenha: " + (error.response?.data?.message || error.message || error));
+            alert("Erro ao resetar Nova Senha: " + (error.response?.data?.message || error.message || error));
         } finally {
             setLoading(false);
         }
@@ -43,11 +43,11 @@ export default function ResetPassword({ onResetSuccess }) {
 
     return (
         <div className="max-w-md mx-auto p-8 bg-white rounded-xl border border-gray-200">
-            <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Esqueci minha novaSenha</h2>
+            <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Esqueci minha Senha</h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">novaSenha</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Nova Senha</label>
                     <input
                         type="password"
                         required
@@ -60,7 +60,7 @@ export default function ResetPassword({ onResetSuccess }) {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Confirmar novaSenha</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Confirmar Nova Senha</label>
                     <input
                         type="password"
                         required
@@ -86,7 +86,7 @@ export default function ResetPassword({ onResetSuccess }) {
                             Carregando...
                         </span>
                     ) : (
-                        "Trocar novaSenha"
+                        "Trocar Senha"
                     )}
                 </button>
             </form>
