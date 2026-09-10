@@ -52,9 +52,11 @@ io.on("connect", (socket) => {
 
 //obrigatoriamente o swagger deve vir antes das rotas
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use("/ToDo", routesTarefa);
 app.use("/ToDo", routesUsuario);
-app.use("/ToDo", routesChat)
+app.use("/ToDo", routesChat);
+
 app.listen(PORT, () => {
     `Servidor rodando na porta ${PORT}`;
 });;

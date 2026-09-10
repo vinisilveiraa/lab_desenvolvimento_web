@@ -1,5 +1,6 @@
 import mongoose from "../db/conn.js";
 const {Schema} = mongoose;
+
 const mensagemSchema = new Schema({
     tarefa:{
         type: Schema.Types.ObjectId,
@@ -21,5 +22,7 @@ const mensagemSchema = new Schema({
         ref: "Usuario",
     }],
 },{timestamps:true});
+
 const Mensagem = mongoose.model('Mensagem', mensagemSchema);
+
 export default Mensagem;

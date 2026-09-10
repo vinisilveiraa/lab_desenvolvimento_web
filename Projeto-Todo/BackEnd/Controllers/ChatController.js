@@ -1,4 +1,4 @@
-import Mensagem from "./Models/Mensagem.js";
+import Mensagem from "../Models/Mensagem.js";
 
 export default class ChatController {
     static async getHistory(req, res) {
