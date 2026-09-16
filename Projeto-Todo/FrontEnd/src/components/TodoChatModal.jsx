@@ -1,62 +1,53 @@
 import React, { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
-import { getChatTodoHistory } from "../api/Todo;jsx"
-
+import { getChatTodoHistory } from "../api/Todo.jsx";
+//conecta a URL do backend 
 const SOCKET_URL = "http://localhost:5000";
-
 export default function TodoChatModal({ tarefa, usuarioLogado, onClose }) {
-
-  const [mensagem, setMensagem] = useState([]);
+  const [mensagens, setMensagens] = useState([]);
   const [novoTexto, setNovoTexto] = useState("");
-  const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(true);
   const socketRef = useRef(null);
   const messagesEndRef = useRef(null);
-
-  // autoscroll para mostrar as mensagens mais recentes
+  //autoscroll para mostrar as mensagem
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
+    //carregar o histórico das mensagens trocadas anteriormente (backend)
     async function carregarHistorico() {
-      setLoading(true);
       try {
+        setLoading(true);
         const res = await getChatTodoHistory(tarefa._id);
         setMensagens(res.data.mensagens || []);
-
-      } catch (err) {
-        console.log("Erro ao carregar o histórico das mensagens", err)
-
-      } finally {
+      } catch (error) {
+        console.log("Erro ao carregar o histórico das mensagens", error);
+      }
+      finally {
         setLoading(false);
       }
     }
 
     carregarHistorico();
-
-    // inicializar socket
-    socketRef.current = to(SOCKET_URL, {
-      withCredentials: true
+    //inicializar o socket
+    socketRef.current = io(SOCKET_URL, {
+      withCredentials: true,
     });
-
-    // entrar no chat
+    //entrar no chat
     socketRef.current.emit("join_task", tarefa._id);
-
-    // ouvir as mensagens em tempo real
+    //ouvir as mensagens em tempo real
     socketRef.current.on("receive_message", (mensagemRecebida) => {
       setMensagens((prev) => [...prev, mensagemRecebida]);
     });
-
-    //  limpar e fechar o modal
+    //limpar e fechar o modal
     return () => {
       if (socketRef.current) {
-        socketRef.current.emit("leave_task", tarefa_.id);
+        socketRef.current.emit("leave_task", tarefa._id);
         socketRef.current.disconnect();
       }
-    }; // fim return
-
-  }, [tarefa._id]); // fim useEffects
+    }
+  }, [tarefa._id]);
 
   useEffect(() => {
     scrollToBottom();
@@ -64,19 +55,17 @@ export default function TodoChatModal({ tarefa, usuarioLogado, onClose }) {
 
   const handleEnviar = (e) => {
     e.preventDefault();
-    if (!novoTexto.trim()) return;
-
-    // emitir mensagem preenchida
+    if (!novoTexto.trim()) {
+      return;
+    }
+    //emitir mensagem preenchida
     socketRef.current.emit("send_message", {
       tarefaId: tarefa._id,
-      remetenteId: usuasuarioLogado._id,
-      texto: novoTexto
+      remetenteId: usuarioLogado._id || usuarioLogado.id,
+      texto: novoTexto,
     });
-
     setNovoTexto("");
-
-  }
-
+  };
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 z-50">

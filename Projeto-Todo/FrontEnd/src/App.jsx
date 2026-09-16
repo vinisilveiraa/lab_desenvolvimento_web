@@ -1,38 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, Link, useNavigate, Navigate } from "react-router-dom";
-
-import LandingPage from "./pages/LandingPage";
-import TodoList from "./pages/TodoList";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register";
-import ForgotPassword from "./pages/ForgotPassword";
-import TodoForm from "./pages/TodoForm";
+import LandingPage from "./Pages/LandingPage";
+import TodoList from "./Pages/TodoList";
+import Login from "./Pages/Login";
+import TodoForm from "./Pages/TodoForm";
 import logoTodo from "./assets/logo-todo.png";
-
 import { logout, getProfile } from "./api/Todo.jsx";
-import ResetPassword from "./pages/ResetPassword.jsx";
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [usuarioLogado, setUsuarioLogado] = useState(null); 
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  const checkUserSession = async () => {
+    try {
+      const response = await getProfile();
+      if (response.status === 200) {
+        setIsAuthenticated(true);
+        setUsuarioLogado(response.data.usuario || response.data); 
+      }
+    } catch (error) {
+      console.log("Sessão não encontrada ou expirada:", error);
+      setIsAuthenticated(false);
+      setUsuarioLogado(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const checkUserSession = async () => {
-      try {
-        const response = await getProfile();
-        if (response.status === 200) {
-          setIsAuthenticated(true);
-        }
-      } catch (error) {
-        console.log("Sessão não encontrada ou expirada:", error);
-        setIsAuthenticated(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     checkUserSession();
   }, []);
 
@@ -43,10 +40,10 @@ export default function App() {
       console.error("Erro ao fazer logout:", error);
     } finally {
       setIsAuthenticated(false);
+      setUsuarioLogado(null);
       navigate("/");
     }
   };
-
 
   if (loading) {
     return (
@@ -58,7 +55,6 @@ export default function App() {
 
   return (
     <Routes>
-
       <Route
         path="/"
         element={
@@ -103,73 +99,34 @@ export default function App() {
                 <Route
                   path="todos"
                   element={
-                    isAuthenticated ? <TodoList /> : <Navigate to="/login" replace />
+                    isAuthenticated ? (
+                      <TodoList usuarioLogado={usuarioLogado} /> 
+                    ) : (
+                      <Navigate to="/login" replace />
+                    )
                   }
                 />
-
                 <Route
                   path="new"
                   element={
                     isAuthenticated ? <TodoForm /> : <Navigate to="/login" replace />
                   }
                 />
-
                 <Route
                   path="login"
                   element={
                     isAuthenticated ? (
                       <Navigate to="/todos" replace />
                     ) : (
-                      <Login onLoginSuccess={() => {
-                        setIsAuthenticated(true);
-                        navigate("/todos");
-                      }} />
+                      <Login
+                        onLoginSuccess={() => {
+                          checkUserSession(); // 🟢 Recarrega a sessão ao logar com sucesso
+                          navigate("/todos");
+                        }}
+                      />
                     )
                   }
                 />
-
-                <Route
-                  path="register"
-                  element={
-                    isAuthenticated ? (
-                      <Navigate to="/todos" replace />
-                    ) : (
-                      <Register onRegisterSuccess={() => {
-                        alert("Conta criada com sucesso!");
-                        navigate("/login");
-                      }} />
-                    )
-                  }
-                />
-
-                <Route
-                  path="forgot"
-                  element={
-                    isAuthenticated ? (
-                      <Navigate to="/todos" replace />
-                    ) : (
-                      <ForgotPassword onForgotPassword={() => {
-                        alert("Email enviado com sucesso!");
-                        navigate("/login");
-                      }} />
-                    )
-                  }
-                />
-
-                <Route
-                  path="reset-password"
-                  element={
-                    isAuthenticated ? (
-                      <Navigate to="/todos" replace />
-                    ) : (
-                      <ResetPassword onResetSuccess={() => {
-                        alert("Senha atualizada!");
-                        navigate("/login");
-                      }} />
-                    )
-                  }
-                />
-
               </Routes>
             </main>
           </div>

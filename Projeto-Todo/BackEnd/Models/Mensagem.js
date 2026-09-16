@@ -1,28 +1,25 @@
 import mongoose from "../db/conn.js";
-const {Schema} = mongoose;
-
+const { Schema } = mongoose;
 const mensagemSchema = new Schema({
-    tarefa:{
+    tarefa: {
         type: Schema.Types.ObjectId,
         ref: "Tarefa",
         required: true
     },
-    remetente:{
+    remetente: {
         type: Schema.Types.ObjectId,
         ref: "Usuario",
-        required: true
+        required: true,
     },
-    texto:{
+    texto: {
         type: String,
-        required:true,
+        required: true,
         trim: true
     },
-    lidaPor:[{
+    lidaPor: [{
         type: Schema.Types.ObjectId,
         ref: "Usuario",
-    }],
-},{timestamps:true});
-
+    }]
+}, { timestamps: true });
 const Mensagem = mongoose.model('Mensagem', mensagemSchema);
-
 export default Mensagem;
