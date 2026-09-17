@@ -116,7 +116,7 @@ export function useVoiceRecognition() {
         const regexTitulo = /(?:título|titulo)\s+(.+)/i;
         const regexDescricao = /(?:descrição|descricao)\s+(.+)/i;
         const regexDataLimite = /(?:data|data limite|prazo)\s+(.+)/i;
-        const participante = /(?:participante|participantes|adicionar|incluir)\s+(.+)/i;
+        const regexParticipante = /(?:participante|participantes|adicionar|incluir)\s+(.+)/i;
     }
 
 };
