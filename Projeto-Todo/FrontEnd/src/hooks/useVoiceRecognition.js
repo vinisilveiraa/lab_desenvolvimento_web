@@ -105,18 +105,65 @@ export function useVoiceRecognition() {
     }
 
     // processar a frase capturada e atualiza o estado correspondente baseado na palavra-chave
-    const processarCOmandoVoz = (fala,
+    const processarComandoVoz = (
+        fala,
         setTitle,
         setDescricao,
         setDataLimite,
         usuarios = [],
-        handleCheckBoxChange
-    ) => {
+
+        handleCheckBoxChange) => {
         // expressoes regulares
         const regexTitulo = /(?:título|titulo)\s+(.+)/i;
         const regexDescricao = /(?:descrição|descricao)\s+(.+)/i;
         const regexDataLimite = /(?:data|data limite|prazo)\s+(.+)/i;
         const regexParticipante = /(?:participante|participantes|adicionar|incluir)\s+(.+)/i;
+
+        // comando do participante
+        const matchParticipante = fala.match(regexParticipante);
+        if (matchParticipante && matchParticipante[1] && handleCheckBoxChange) {
+            const nomeFalado = matchParticipante[1].trim.toLowerCase();
+            // buscar a lista de usuarios
+            const usuarioEncontrado = usuarios.find(u => u.nome.toLowerCase().includes(nomeFalado));
+
+            if (usuarioEncontrado) {
+                const id = usuarioEncontrado._id || usuarioEncontrado.id;
+                handleCheckBoxChange(id);
+            } else {
+                console.warn("Usuario não encontrado na lista: ", nomeFalado);
+            }
+            return
+        }
+
+        // comando de titulo
+        const matchTitulo = fala.match(regexTitulo);
+        if (matchTitulo && matchTitulo[1]) {
+            setTitulo(matchTitulo[1].trim);
+            return
+        }
+        const matchDescricao = fala.match(regexDescricao);
+        if (matchDescricao && matchDescricao[1]) {
+            setDescricao(matchDescricao[1].trim);
+            return
+        }
+        const matchDataLimite = fala.match(regexDataLimite);
+        if (matchDataLimite && matchDataLimite[1]) {
+            const dataFormatada = interpretarDataVoz(matchData[1]);
+            if (dataFormatada) {
+                setDataLimite(dataFormatada);
+            }
+            return
+        }
     }
 
+    // nao deu nenhum match
+    return {
+        textoOuvido,
+        setTextoOuvido,
+        ouvindo,
+        iniciarEscuta,
+        pararEscuta,
+        processarComandoVoz,
+        suportado
+    }
 };
