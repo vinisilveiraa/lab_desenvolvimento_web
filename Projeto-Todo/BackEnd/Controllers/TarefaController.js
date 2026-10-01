@@ -28,7 +28,7 @@ export default class TarefaController {
             return res.status(500).json({ message: "Problema ao inserir uma tarefa", error });
         }
     }//fim create
-    
+
     static async getAll(req, res) {
         const usuarioLogado = req.user.id;
         console.log(req.user)
@@ -50,4 +50,22 @@ export default class TarefaController {
         }
 
     }//fim getAll
+
+    static async changeStatus(req, res) {
+        const { id, situacao } = req.body;
+
+        if (!id || !situacao) {
+            return res.status(422).json({ message: "Todos os dados são obrigatórios" });
+        }
+        const tarefa = await Tarefa.find({
+            
+        });
+
+        try {
+
+        } catch (err) {
+
+        }
+
+    }
 }
