@@ -31,7 +31,7 @@ export default class TarefaController {
 
     static async getAll(req, res) {
         const usuarioLogado = req.user.id;
-        console.log(req.user)
+        // console.log(req.user)
         try {
             const tarefas = await Tarefa.find(
                 {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TodoChatModal from "./TodoChatModal.jsx";
 import { patchTodoStatus } from "../api/Todo.jsx";
 
-export default function TodoItem({ todo, usuarioLogado }) {
+export default function TodoItem({ todo, usuarioLogado, onStatusChange }) {
     const [isChatOpen, setIsChatOpen] = useState(false);
 
     // Extrai as iniciais do nome (ex: "Carlos Silva" -> "CS")
@@ -42,11 +42,15 @@ export default function TodoItem({ todo, usuarioLogado }) {
 
     async function handleStatusChange(novoStatus) {
         const statusAnterior = situacao;
-
         setSituacao(novoStatus);
 
         try {
-            await patchTodoStatus({ id: todo._id, situacao: novoStatus });
+            await patchTodoStatus({
+                id: todo._id,
+                situacao: novoStatus
+            });
+            onStatusChange(todo._id, novoStatus);
+
         } catch (error) {
             console.error("Erro ao sincronizar com o servidor:", error);
             setSituacao(statusAnterior);
@@ -82,14 +86,16 @@ export default function TodoItem({ todo, usuarioLogado }) {
                 </div>
 
                 {/* Rodapé do Card: Infos + Equipe + Botão de Chat */}
-                <div className="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-gray-100 text-xs text-gray-500">
-                    <div className="flex items-center gap-4">
+                <div className="flex flex-col gap-3 pt-3 border-t border-gray-100">
+
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
                         <div>
                             <span className="font-medium text-gray-700">Prazo:</span>{" "}
                             {todo.dataLimite
                                 ? new Date(todo.dataLimite).toLocaleDateString("pt-BR")
                                 : "Sem data"}
                         </div>
+
                         {criador && (
                             <div>
                                 <span className="font-medium text-gray-700">Criado por:</span>{" "}
@@ -100,22 +106,22 @@ export default function TodoItem({ todo, usuarioLogado }) {
                         )}
                     </div>
 
-                    <div className="flex items-center gap-3">
-                        {/* Participantes da tarefa */}
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+
                         {participantes.length > 0 && (
                             <div
-                                className="flex items-center gap-2"
+                                className="flex items-center gap-2 min-w-0"
                                 title={`Participantes: ${todosNomesParticipantes}`}
                             >
-                                <span className="font-medium text-gray-700 hidden sm:inline">
+                                <span className="font-medium text-gray-700 text-xs shrink-0">
                                     Equipe:
                                 </span>
 
-                                <div className="flex -space-x-2 overflow-hidden">
+                                <div className="flex -space-x-2">
                                     {visibleParticipantes.map((participante, index) => (
                                         <div
                                             key={participante._id || index}
-                                            className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-blue-500 text-white font-semibold border-2 border-white shadow-xs text-[10px]"
+                                            className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-blue-500 text-white font-semibold border-2 border-white shadow-sm text-[10px] shrink-0"
                                             title={participante.nome}
                                         >
                                             {getInitials(participante.nome)}
@@ -124,7 +130,7 @@ export default function TodoItem({ todo, usuarioLogado }) {
 
                                     {extraCount > 0 && (
                                         <div
-                                            className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-gray-200 text-gray-700 font-bold border-2 border-white shadow-xs text-[10px]"
+                                            className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-gray-200 text-gray-700 font-bold border-2 border-white shadow-sm text-[10px] shrink-0"
                                             title={`Mais ${extraCount} participantes: ${participantes
                                                 .slice(maxVisible)
                                                 .map((p) => p.nome)
@@ -137,25 +143,27 @@ export default function TodoItem({ todo, usuarioLogado }) {
                             </div>
                         )}
 
-                        {/*Botão para abrir o modal de Chat */}
-                        <div className="flex items-center gap-3">
+                        <div className="flex flex-wrap items-center gap-2 ml-auto">
 
-                            {OPCOES_STATUS.filter(opcao => opcao.key !== situacao).map((opcao) => (
-                                <button
-                                    key={opcao.key}
-                                    onClick={() => handleStatusChange(opcao.key)}
-                                    className={`px-3 py-1.5 text-xs font-semibold border rounded-lg transition-colors cursor-pointer ${opcao.style}`}
-                                >
-                                    {opcao.label}
-                                </button>
-                            ))}
+                            {OPCOES_STATUS
+                                .filter(opcao => opcao.key !== situacao)
+                                .map((opcao) => (
+                                    <button
+                                        key={opcao.key}
+                                        onClick={() => handleStatusChange(opcao.key)}
+                                        className={`px-3 py-1.5 text-xs font-semibold border rounded-lg transition-colors cursor-pointer whitespace-nowrap ${opcao.style}`}
+                                    >
+                                        {opcao.label}
+                                    </button>
+                                ))}
 
-                            <span>|</span>
+                            <span className="text-gray-300 hidden sm:inline">
+                                |
+                            </span>
 
-                            {/* Botão de Chat */}
                             <button
                                 onClick={() => setIsChatOpen(true)}
-                                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-colors cursor-pointer"
+                                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
                                 title="Abrir chat da tarefa"
                             >
                                 <span>💬</span>
@@ -165,6 +173,7 @@ export default function TodoItem({ todo, usuarioLogado }) {
                         </div>
                     </div>
                 </div>
+
             </div>
 
             {/* Modal do Chat acionado pelo estado */}

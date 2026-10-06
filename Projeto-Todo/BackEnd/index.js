@@ -37,10 +37,10 @@ const io = new Server(httpServer, {
     }
 });
 io.on("connect", (socket) => {
-    console.log(`Usuário Conectado: ${socket.id}`);
+    // console.log(`Usuário Conectado: ${socket.id}`);
     registerChatSocket(io, socket);
     socket.on("disconnect", () => {
-        console.log(`Usuário desconectou: ${socket.id}`);
+        // console.log(`Usuário desconectou: ${socket.id}`);
 
     });
 });

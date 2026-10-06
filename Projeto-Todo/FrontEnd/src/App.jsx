@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, Link, useNavigate, Navigate } from "react-router-dom";
-import LandingPage from "./Pages/LandingPage";
-import TodoList from "./Pages/TodoList";
-import Login from "./Pages/Login";
-import Register from "./Pages/Register.jsx";
+import LandingPage from "./pages/LandingPage";
+import TodoList from "./pages/TodoList.jsx";
+import Login from "./pages/Login";
+import Register from "./pages/Register.jsx";
 import TodoForm from "./pages/TodoForm.jsx";
 import logoTodo from "./assets/logo-todo.png";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -175,8 +175,10 @@ export default function App() {
                     )
                   }
                 />
-
               </Routes>
+
+
+
             </main>
           </div>
         }

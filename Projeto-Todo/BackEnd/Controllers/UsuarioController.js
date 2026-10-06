@@ -192,7 +192,7 @@ export default class UsuarioController {
     static async Profile(req, res) {
         try {
             const userToken = req.user;
-            console.log("TOKEN/PAYLOAD:", userToken);
+            // console.log("TOKEN/PAYLOAD:", userToken);
 
             if (!userToken) {
                 return res.status(401).json({ message: "Não autenticado" });
@@ -210,7 +210,7 @@ export default class UsuarioController {
                 return res.status(404).json({ message: "Usuário não encontrado" });
             }
 
-            console.log("USUÁRIO DO BANCO:", dadosUsuario);
+            // console.log("USUÁRIO DO BANCO:", dadosUsuario);
 
             // Retorna os dados do banco para o Frontend
             return res.status(200).json({ usuario: dadosUsuario });
