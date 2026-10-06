@@ -22,7 +22,8 @@ export const getProfile = () => api.get("/profile");
 export const forgotPassword = (email) => api.post("/forgotPassword", email);
 export const resetPassword = (payload) => api.post("/resetPassword", payload);
 
-
 export const getChatTodoHistory = (tarefaid) => api.get(`/getChatTodoHistory/${tarefaid}`)
+
+export const patchTodoStatus = (payload) => api.patch("/changeStatus", payload);
 
 export default api;

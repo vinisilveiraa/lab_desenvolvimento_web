@@ -6,5 +6,6 @@ const routesTarefa = new Router();
 
 routesTarefa.get("/getAll", UserMiddleware, TarefaController.getAll);
 routesTarefa.post("/create", UserMiddleware, TarefaController.Create);
+routesTarefa.patch("/changeStatus", UserMiddleware, TarefaController.changeStatus);
 
 export default routesTarefa;
