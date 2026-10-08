@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Usuario {
+  id          Int       @id @default(autoincrement())
+  nome        String   
+  email       String    @unique
+  senha       String   
+  perfil      Perfil    @default(MORADOR)
+  criadoEm    DateTime  @default(now());
+
+  @@map ("usuarios")
+}
+
+model Ecoponto {
+  id          Int       @id @default(autoincrement())
+  nome        String
+  latitude    String
+  longitude   String
+  descricao   String? 
+  cep         String? 
+  logradouro  String? 
+  numero      String? 
+  bairro      String? 
+  cidade      String? 
+  uf          String? 
+  nota        Int? 
+  criadoEm    DateTime  @default(now());
+
+  lixeiras[]
+
+  @@map ("ecopontos")
+}
+
+model Lixeira {
+  id          Int       @id @default(autoincrement())
+  uuid_sensor String
+  tipo Tipo
+  volume_max  Int
+  nivel_cheio Int
+
+  ecoponto_id Int 
+
+  criadoEm    DateTime  @default(now());
+
+  ecoponto Ecoponto @relation(fields:[ecoponto_id], reference:[id], onDelete:Cascade)
+
+  @@map ("lixeiras")
+}
