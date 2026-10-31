@@ -1,0 +1,8 @@
+back: 
+npm install @node-rs/argon2 cookie-parser cors dotenv express jsonwebtoken mongoose nodemailer nodemon socket.io swagger-autogen swagger-ui-express
+
+front:
+npm install @tailwindcss/vite apexcharts axios react react-apexcharts react-dom react-router-dom socket.io-client tailwindcss
+
+dependencias:
+npm install -D @eslint/js @types/react @types/react-dom @vitejs/plugin-react eslint eslint-plugin-react-hooks eslint-plugin-react-refresh globals vite

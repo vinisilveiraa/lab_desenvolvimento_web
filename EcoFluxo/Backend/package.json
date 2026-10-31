@@ -1,8 +1,19 @@
 {
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Controle de Ecopontos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
   "dependencies": {
     "@node-rs/argon2": "^2.2.2",
     "@prisma/client": "^7.10.0",
-    "cookie-parser": "^1.4.7",
+    "cookie-parse": "^0.4.0",
     "cors": "^2.8.6",
     "dotenv": "^18.0.6",
     "express": "^5.2.1",
@@ -10,9 +21,8 @@
     "nodemailer": "^10.0.16"
   },
   "devDependencies": {
-    "@types/express": "^5.0.6",
+    "@types/express": "github:types/express",
     "@types/node": "^26.6.4",
-    "@types/swagger-ui-express": "^4.1.8",
     "nodemon": "^3.1.14",
     "prisma": "^7.10.0",
     "swagger-autogen": "^2.23.7",
