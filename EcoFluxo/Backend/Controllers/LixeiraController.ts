@@ -17,8 +17,16 @@ export default class LixeiraController {
                 return res.status(400).json({ message: "Campos inválidos ou não preenchidos" });
             }
 
+            const validTypes = ['PLASTICO', 'VIDRO', 'PAPEL', 'METAL', 'ORGANICO',];
+            const formattedTipo = tipo.toUpperCase();
+
+            if (!validTypes.includes(formattedTipo)) {
+                return res.status(400).json({ message: "Tipo de lixeira inválido" });
+            }
+
             const lixeiraData = {
-                uuid_sensor, tipo,
+                uuid_sensor,
+                tipo: formattedTipo,
                 volume_max: Number(volume_max),
                 nivel_cheio: Number(nivel_cheio),
                 ecoponto_id: Number(ecoponto_id)

@@ -12,7 +12,7 @@ import routerUsuario from "./Routes/UsuarioRoutes.js";
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const swaggerDocument = require("./swagger-output.json");
+// const swaggerDocument = require("./swagger-output.json");
 
 app.use(cors({
     origin: process.env.FRONTEND_URL,
@@ -24,11 +24,12 @@ app.use(cookieParser());
 
 
 //incluir rotas
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/Ecopontos", routerEcoponto);
 app.use("/Ecopontos", routerLixeira);
 app.use("/Ecopontos", routerUsuario);
 
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
+    console.log(`Servidor rodando na porta http://localhost:${PORT}`);
+    console.log(`Swagger rodando na porta http://localhost:${PORT}/docs - NÃO FUNCIONANDO NO MOMENTO`);
 });

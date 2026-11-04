@@ -18,7 +18,7 @@ export default class EcopontoController {
             } = req.body;
             //verificação dos dados obrigatórios
 
-            if (!nome || latitude || longitude) {
+            if (!nome || !latitude || !longitude) {
                 return res.status(400).json({ message: "Campos inválidos ou não preenchidos" });
             }
 
@@ -27,7 +27,7 @@ export default class EcopontoController {
                 latitude,
                 longitude,
                 descricao: descricao || null,
-                cep: logradouro || null,
+                cep: cep || null,
                 logradouro: logradouro || null,
                 numero: numero || null,
                 bairro: bairro || null,
