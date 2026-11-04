@@ -4,16 +4,23 @@
   "description": "Controle de Ecopontos",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch index.ts",
+    "swagger": "node swagger.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@auth/prisma-adapter": "^2.11.3",
     "@node-rs/argon2": "^2.2.2",
-    "@prisma/client": "^7.10.0",
+    "@prisma/client": "^7.10.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "cookie-parse": "^0.4.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^18.0.6",
     "express": "^5.2.1",
@@ -21,13 +28,16 @@
     "nodemailer": "^10.0.16"
   },
   "devDependencies": {
-    "@types/express": "github:types/express",
+    "@types/cookie-parser": "^1.4.10",
     "@types/node": "^26.6.4",
-    "nodemon": "^3.1.14",
+    "@types/swagger-ui-express": "^4.1.8",
+    "nodemon": "^1.0.2",
     "prisma": "^7.10.0",
-    "swagger-autogen": "^2.23.7",
+    "swagger-autogen": "^2.7.7",
     "swagger-ui-express": "^5.0.1",
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
+    "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   }
 }
