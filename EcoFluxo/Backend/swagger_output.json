@@ -1,0 +1,187 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API EcoFluxo",
+    "version": "1.0.0",
+    "description": "Documentação gerada automaticamente com swagger-autogen"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Servidor Local"
+    }
+  ],
+  "paths": {
+    "/ecofluxo/create": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/ecofluxo/login": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "senha": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ecofluxo/createEcoponto": {
+      "post": {
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  },
+                  "latitude": {
+                    "example": "any"
+                  },
+                  "longitude": {
+                    "example": "any"
+                  },
+                  "descricao": {
+                    "example": "any"
+                  },
+                  "cep": {
+                    "example": "any"
+                  },
+                  "logradouro": {
+                    "example": "any"
+                  },
+                  "numero": {
+                    "example": "any"
+                  },
+                  "bairro": {
+                    "example": "any"
+                  },
+                  "cidade": {
+                    "example": "any"
+                  },
+                  "uf": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ecofluxo/getEcopontos": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/ecofluxo/createLixeira": {
+      "post": {
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "uuid_sensor": {
+                    "example": "any"
+                  },
+                  "tipo": {
+                    "example": "any"
+                  },
+                  "volume_max": {
+                    "example": "any"
+                  },
+                  "nivel_cheio": {
+                    "example": "any"
+                  },
+                  "ecoponto_id": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ecofluxo/getLixeiras": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "token"
+      }
+    }
+  }
+}
