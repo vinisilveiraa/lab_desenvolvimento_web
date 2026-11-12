@@ -1,3 +1,4 @@
+import "dotenv/config";
 import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET || "sua_chave_super_secreta";
